@@ -1,8 +1,8 @@
 package lib
 
 import (
-	"fmt"
 	"bufio"
+	"fmt"
 	"io"
 	"os"
 )
@@ -21,7 +21,6 @@ func ReadFromLocalFile(fpath string) {
 		if eof == io.EOF {
 			break
 		}
-		// fmt.Println("fafa")
-		// GeneratePrizeInfo(string(line), turns, drawId)
+		fmt.Println("each line", line)
 	}
 }
