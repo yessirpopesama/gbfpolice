@@ -1,0 +1,16 @@
+{
+    "name": "gbf-police",
+    "version": "1.0.0",
+    "description": "Hands up! Runners",
+    "main": "./src/visit.js",
+    "scripts": {
+        "start": "node ./src/visit.js"
+    },
+    "author": "lsy",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "lodash": "^4.17.11",
+        "superagent": "^5.0.6"
+    },
+    "devDependencies": {}
+}

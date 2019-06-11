@@ -1,6 +1,13 @@
-# 古战场出警脚本 go version
+# 古战场出警脚本 ~~go version~~ 我再也不用go写啦，换成nodejs版本
 
-## 使用方法 ###
-1. 将成员id写入miscs文件的members.txt文件
-2. 逐行扫描members，抓取当日数据和7天内数据
-3. 将结果存入excel文件中
+## 环境部署 ## 
+1. install npm
+2. install node  version >= 10.0
+3. git clone this project && cd gbfpolice && npm install
+4. modify the config (/app/src/config/config) 
+5. add a file in app/miscs/members , fill in ids
+
+## 启动 ## 
+    npm start
+
+
