@@ -1,0 +1,4 @@
+server/node_modules/*
+server/src/miscs/*
+server/package-lock.json
+server/process.dev.yaml

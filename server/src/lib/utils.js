@@ -1,5 +1,3 @@
-const config = require('../config/config');
-
 function getRequestHeaders (sessionId) {
     return {
         "Host": "info.gbfteamraid.fun",
@@ -17,6 +15,17 @@ function getRequestHeaders (sessionId) {
     }
 }
 
+function successResp(result, total) {
+    let resp = {
+        data: result,
+        errorno: 0,
+        errormsg: 'success'
+    };
+    if (total !== null && total !== undefined) resp.total = total;
+    return resp;
+}
+
 module.exports = {
-    getRequestHeaders
+    getRequestHeaders,
+    successResp
 }

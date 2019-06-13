@@ -1,0 +1,11 @@
+apps:
+  - script: /opt/gbf-police
+    name     : 'gbf-police'
+    instances: 1
+    exec_mode: fork
+    max_memory_restart: 1000M
+    watch: true
+    ignore_watch: ['logs', 'miscs', 'test']
+    env:
+       NODE_ENV: test
+       PORT: 8100
