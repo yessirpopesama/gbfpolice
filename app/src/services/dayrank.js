@@ -3,15 +3,14 @@ const utils = require('../lib/utils');
 const _ = require('lodash');
 const request = require('superagent');
 
-async function getRankStatus(userid) {
+async function getRankStatus(userid, sessionId) {
     let data = {
         "method": "getUserDayPoint",
-        "params": '{"teamraidid":"teamraid045","userid": "' + userid + '"}'
+        "params": '{"teamraidid":"' + config.Base.raid_id + '","userid": "' + userid + '"}'
     }
-    console.log("data: ", JSON.stringify(data))
     return new Promise((resolve, reject) => {
         request.post(config.Base.req_url)
-            .set(utils.getRequestHeaders())
+            .set(utils.getRequestHeaders(sessionId))
             .send(data)
             .timeout({
                 response: 10000,  // Wait 5 seconds for the server to start sending,
@@ -27,8 +26,8 @@ async function getRankStatus(userid) {
     });
 }
 
-module.exports =  async function (userid) {
-    let userRank = await getRankStatus(userid);
+module.exports =  async function (userid, sessionId) {
+    let userRank = await getRankStatus(userid, sessionId);
     let contributes = [];
     if (userRank && userRank.err === "0") {
         let { result } = userRank;

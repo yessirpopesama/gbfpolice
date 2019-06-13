@@ -1,6 +1,6 @@
 const config = require('../config/config');
 
-function getRequestHeaders () {
+function getRequestHeaders (sessionId) {
     return {
         "Host": "info.gbfteamraid.fun",
         "Connection": "keep-alive",
@@ -13,7 +13,7 @@ function getRequestHeaders () {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,ja;q=0.7",
-        "Cookie": "JSESSIONID=" + config.Base.session_id,
+        "Cookie": "JSESSIONID=" + sessionId,
     }
 }
 

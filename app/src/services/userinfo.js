@@ -2,14 +2,14 @@ const config = require('../config/config')
 const utils = require('../lib/utils')
 const request = require('superagent')
 
-module.exports = async function(userid) {
+module.exports = async function(userid, sessionId) {
 	let data = {
         "method": "getUserrank",
         "params": '{"userid": "' + userid + '","username":""}'
     }
     return new Promise((resolve, reject) => {
         request.post(config.Base.req_url)
-            .set(utils.getRequestHeaders())
+            .set(utils.getRequestHeaders(sessionId))
             .send(data)
             .timeout({
                 response: 5000,  // Wait 5 seconds for the server to start sending,
