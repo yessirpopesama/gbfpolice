@@ -7,8 +7,6 @@ const execSync = require('child_process').execSync;
 
 async function arrest(ctx) {
     try {
-        // 测试是否获取到header中的jsessionid， 只能手动录入目前
-        // let sessionId = "FDF36F8871C31417BF97FC14778D594A"
         // 自动生成sessionId
         let sessionId = execSync(`python ${__dirname}/session.py`, { encoding: "binary" }).toString();
         if (sessionId.length > 32) {
@@ -22,14 +20,15 @@ async function arrest(ctx) {
             let user_id = users[i];
             let user_resp = await userInfo(user_id, sessionId);
             let user_info = {};  // 记录用户信息
-            if (user_resp && user_resp.err === '0') {
+            console.log(`number: ${user_id} `, JSON.stringify(user_resp));
+            if (user_resp && user_resp['result'].length > 0 && user_resp.err === '0') {
                 user_info.level = user_resp['result'][0].level;
                 user_info.name = user_resp['result'][0].name;
                 user_info.userid = user_resp['result'][0].userid;
-            }
-            let contributes = await rank(user_id, sessionId);
-            user_info.contributes = contributes;
+                user_info.contributes = await rank(user_id, sessionId);
+            } 
             result.push(user_info);
+            utils.sleep(500);  // 延迟500ms 防止接口访问不到
         }
         return ctx.body = utils.successResp(result);
     } catch (ex) {

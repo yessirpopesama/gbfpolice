@@ -25,7 +25,12 @@ function successResp(result, total) {
     return resp;
 }
 
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 module.exports = {
     getRequestHeaders,
-    successResp
+    successResp,
+    sleep
 }
