@@ -3,11 +3,18 @@ const file = require('../../lib/file')
 const config = require('../../config/config')
 const rank = require('./services/dayrank')
 const utils = require('../../lib/utils')
+const execSync = require('child_process').execSync;
 
 async function arrest(ctx) {
     try {
         // 测试是否获取到header中的jsessionid， 只能手动录入目前
-        let sessionId = "FDF36F8871C31417BF97FC14778D594A"
+        // let sessionId = "FDF36F8871C31417BF97FC14778D594A"
+        // 自动生成sessionId
+        let sessionId = execSync(`python ${__dirname}/session.py`, { encoding: "binary" }).toString();
+        if (sessionId.length > 32) {
+            sessionId = sessionId.substring(0, 32);
+        }
+        console.log(`sessionId: ${sessionId}`, typeof(sessionId), sessionId.length);
         // 从本地文件中获取用户User_id
         let users = await file(config.Base.file_path + '/members.txt');
         let result = [];
