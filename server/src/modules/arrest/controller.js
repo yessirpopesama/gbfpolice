@@ -4,9 +4,17 @@ const config = require('../../config/config')
 const rank = require('./services/dayrank')
 const utils = require('../../lib/utils')
 const execSync = require('child_process').execSync;
+const redis = require('../../lib/redis');
 
 async function arrest(ctx) {
+    let redis_str = "team";
     try {
+        // 从redis中寻找是否存在记录
+        let data = await redis.get(redis_str);
+        if (data) {
+            console.log("read from redis", data)
+            return ctx.body = utils.successResp(JSON.parse(data));
+        }
         // 自动生成sessionId
         let sessionId = execSync(`python ${__dirname}/session.py`, { encoding: "binary" }).toString();
         if (sessionId.length > 32) {
@@ -30,6 +38,7 @@ async function arrest(ctx) {
             result.push(user_info);
             utils.sleep(500);  // 延迟500ms 防止接口访问不到
         }
+        await redis.setex(str, 60*5, JSON.stringify(result));
         return ctx.body = utils.successResp(result);
     } catch (ex) {
         console.log("ex", ex);

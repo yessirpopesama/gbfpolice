@@ -5,6 +5,6 @@ const router = Router({
     prefix: '/api/v1/arrest'
 });
 
-router.get('/', controller.arrest)
+router.get('/all', controller.arrest);
 
 module.exports = router;
