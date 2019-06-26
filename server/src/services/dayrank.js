@@ -1,5 +1,5 @@
-const config = require('../../../config/config')
-const utils = require('../../../lib/utils')
+const config = require('../config/config')
+const utils = require('../lib/utils')
 const _ = require('lodash');
 const request = require('superagent');
 
