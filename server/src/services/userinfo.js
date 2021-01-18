@@ -6,7 +6,8 @@ module.exports = async function(userid, sessionId) {
 	let data = {
         "method": "getUserrank",
         "params": '{"userid": "' + userid + '","username":""}'
-    }
+    };
+    sessionId = "FF742CAFA731CA309F417147DA2E1FB2";
     return new Promise((resolve, reject) => {
         request.post(config.Base.req_url)
             .set(utils.getRequestHeaders(sessionId))
@@ -19,7 +20,6 @@ module.exports = async function(userid, sessionId) {
                 resolve(JSON.parse(res.text))
             })
             .catch(err => {
-                console.log("request got error", err)
                 reject(err)
             })
     });

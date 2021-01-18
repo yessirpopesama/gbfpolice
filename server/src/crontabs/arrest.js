@@ -28,11 +28,16 @@ async function job() {
                 user_info.name = user_resp['result'][0].name;
                 user_info.userid = user_resp['result'][0].userid;
                 user_info.contributes = await rank(user_id, sessionId);
-            } 
+            } else {
+                user_info.level = 0;
+                user_info.name = "不能识别";
+                user_info.userid = user_id;
+                user_info.contributes = [];
+            }
             result.push(user_info);
             utils.sleep(500);  // 延迟500ms 防止接口访问不到
         }
-        await redis.setex(str, 60*5, JSON.stringify(result));
+        await redis.set(str, JSON.stringify(result));
         process.exit(0);
     } catch (ex) {
         console.log("ex", ex);
